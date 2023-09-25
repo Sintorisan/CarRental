@@ -11,8 +11,8 @@ public class Car : RentalVehicleBase, IRentalVehicle
     public double CostKm { get; set; }
     public int CostDay { get; set; }
 
-    public Car(VehicleType vehicleType, VehicleFuel vehicleFuel, string regNo, string make, int odometer)
-        : base(vehicleType, vehicleFuel)
+    public Car(VehicleType vehicleType, VehicleFuel vehicleFuel, int id, string regNo, string make, double odometer)
+        : base(vehicleType, vehicleFuel, id)
     {
         RegistrationNumber = regNo;
         Make = make;

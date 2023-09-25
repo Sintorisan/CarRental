@@ -57,6 +57,7 @@
                 <th scope="col">Odometer</th>
                 <th scope="col">Cost Km</th>
                 <th scope="col">Vehicle Type</th>
+                <th scope="col">Fuel Type</th>
                 <th scope="col">Cost Day</th>
                 <th scope="col">Status</th>
             </tr>
@@ -70,6 +71,7 @@
                     <td>@b.Odometer</td>
                     <td>@b.CostKm</td>
                     <td>@b.VehicleType</td>
+                    <td>@b.VehicleFuel</td>
                     <td>@b.CostDay</td>
                     <td><span class="badge text-bg-@(b.Availability.ToString() == "Available" ? "success" : "danger")">@b.Availability</span></td>
                 </tr>
@@ -85,6 +87,7 @@
         <thead>
             <tr>
                 <th scope="col">SSN</th>
+                <th scope="col">Customer Id</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
             </tr>
@@ -94,6 +97,7 @@
             {
                 <tr>
                     <th scope="row">@b.SocialSecurityNumber</th>
+                    <td>@b.CustomerId</td>
                     <td>@b.FirstName</td>
                     <td>@b.LastName</td>
                 </tr>
@@ -101,3 +105,22 @@
         </tbody>
     </table>
 </div>
+
+<div class="container">
+    <div class="col mt-2">
+        <input type="text" class="form-control" placeholder="First name" @bind="firstName">
+    </div>
+    <div class="col mt-2">
+        <input type="text" class="form-control" placeholder="Last name"@bind="lastName">
+    </div>
+    <div class="col mt-2">
+        <input type="tel" class="form-control" placeholder="SSN" @bind="ssn">
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm mt-2" @onclick="(() => bl.CreateNewCustomer(ssn, firstName, lastName))">Create Customer</button>
+</div>
+
+@code {
+    long ssn;
+    string firstName = string.Empty;
+    string lastName = string.Empty;
+}

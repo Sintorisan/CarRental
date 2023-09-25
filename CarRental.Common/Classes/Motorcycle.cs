@@ -10,8 +10,8 @@ public class Motorcycle : RentalVehicleBase, IRentalVehicle
     public double Odometer { get; set; }
     public double CostKm { get; set; }
     public int CostDay { get; set; }
-    public Motorcycle(VehicleType vehicleType, VehicleFuel vehicleFuel, string regNo, string make, int odometer)
-        : base(vehicleType, vehicleFuel)
+    public Motorcycle(VehicleType vehicleType, VehicleFuel vehicleFuel, int id, string regNo, string make, double odometer)
+        : base(vehicleType, vehicleFuel, id)
     {
         RegistrationNumber = regNo;
         Make = make;
@@ -19,7 +19,7 @@ public class Motorcycle : RentalVehicleBase, IRentalVehicle
 
         //Takes the represented number value from the enum that defines the costs
         CostDay = (int)vehicleType;
-        CostKm = vehicleType != VehicleType.Motorcycle ? (int)vehicleType : 0.5;
+        CostKm = (double)vehicleFuel;
     }
 }
 

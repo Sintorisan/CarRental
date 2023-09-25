@@ -11,7 +11,7 @@ namespace CarRental.Common.Classes
         public IRentalVehicle RentedVehicle { get; set; }
         public DateTime StartDate => DateTime.Today;
         public DateTime EndDate { get; set; }
-        public string DisplayEndDate { get; set; }
+        public string DisplayEndDate { get; set; } = string.Empty;
         public double KmStart { get ; init; }
         public double KmDriven { get; set; }
         public double TotalCost { get; set; }
@@ -26,7 +26,7 @@ namespace CarRental.Common.Classes
             BookingId = BookingIdGenerator();
             KmStart = vehicle.Odometer;
 
-            Customer.RentedVehicle = vehicle.RegistrationNumber;
+            Customer.RentedVehicle = vehicle;
             RentedVehicle.Availability = Availability.Booked;
         }
 
@@ -56,7 +56,7 @@ namespace CarRental.Common.Classes
         private int BookingIdGenerator()
         {
             Random random = new Random();
-            int bookingId = random.Next(1000, 9999) + Customer.CustomerId;
+            int bookingId = random.Next(1000, 8999) + Customer.CustomerId;
             return bookingId;
         }
     }

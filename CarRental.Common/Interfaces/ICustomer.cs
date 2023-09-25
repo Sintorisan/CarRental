@@ -7,5 +7,5 @@ public interface ICustomer
     string FirstName { get; set; }
     string LastName { get; set; }
     string FullName { get; set; }
-    string? RentedVehicle { get; set; }
+    IRentalVehicle? RentedVehicle { get; set; }
 }

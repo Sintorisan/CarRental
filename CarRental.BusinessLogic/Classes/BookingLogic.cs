@@ -1,4 +1,5 @@
-﻿using CarRental.Common.Interfaces;
+﻿using CarRental.Common.Enums;
+using CarRental.Common.Interfaces;
 
 namespace CarRental.BusinessLogic.Classes;
 
@@ -18,7 +19,29 @@ public class BookingLogic
         }
     }
 
+    public void CreateNewBooking(ICustomer customer, IRentalVehicle vehicle)
+    {
+        _db.CreateBooking(customer, vehicle);
+    }
 
+    public void CreateNewCustomer(long ssn, string firstName, string lastName)
+    { 
+        _db.CreateCustomer(ssn, firstName, lastName);
+    }
+
+    public void CreateNewVehicle(VehicleType type, VehicleFuel fuel, string regNo, string make, double odom)
+    {
+        _db.CreateVehicle(type, fuel, regNo, make, odom);
+    }
+
+    public IEnumerable<VehicleFuel> GetVehicleFuel()
+    {
+        return Enum.GetValues(typeof(VehicleFuel)).Cast<VehicleFuel>();
+    }
+    public IEnumerable<VehicleType> GetVehicleTypes()
+    {
+        return Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>();
+    }
     public IEnumerable<IRentalVehicle> GetAllRentalVehicles()
     {
         return _db.rentalVehicles();

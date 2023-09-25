@@ -1,5 +1,4 @@
 ﻿using CarRental.Common.Interfaces;
-using System.Text;
 
 namespace CarRental.Common.Classes;
 
@@ -10,28 +9,22 @@ public class Customer : ICustomer
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string FullName { get; set; }
-    public string? RentedVehicle { get; set; }
+    public IRentalVehicle? RentedVehicle { get; set; }
 
-    public Customer(long SSN, string firstName, string lastName)
+    public Customer(long SSN, string firstName, string lastName, int id)
     {
         SocialSecurityNumber = SSN;
         FirstName = firstName;
         LastName = lastName;
         FullName = NameConcat();
-        CustomerId = IdGenerator();
+        CustomerId = id;
     }
 
-    public Customer(long SSN, string firstName, string lastName, IRentalVehicle rentalVehicle)
-        : this(SSN, firstName, lastName)
+    public Customer(long SSN, string firstName, string lastName, int id, IRentalVehicle rentalVehicle)
+        : this(SSN, firstName, lastName, id)
     {
-        RentedVehicle = rentalVehicle.RegistrationNumber;
+        RentedVehicle = rentalVehicle;
     }
 
     private string NameConcat() => FirstName + " " + LastName;
-  
-    private int IdGenerator()
-    {
-        Random random = new Random();
-        return random.Next(10000, 99999);
-    }
 }

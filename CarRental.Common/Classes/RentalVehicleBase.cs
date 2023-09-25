@@ -1,5 +1,5 @@
 ﻿using CarRental.Common.Enums;
-
+using CarRental.Common.Interfaces;
 
 namespace CarRental.Common.Classes;
 
@@ -10,16 +10,10 @@ public class RentalVehicleBase
     public VehicleFuel VehicleFuel { get; set; }
     public Availability Availability { get; set; } = Availability.Available;
 
-    public RentalVehicleBase(VehicleType vehicleType, VehicleFuel vehicleFuel)
+    public RentalVehicleBase(VehicleType vehicleType, VehicleFuel vehicleFuel, int id)
     {
         VehicleType = vehicleType;
         VehicleFuel = vehicleFuel;
-        VehicleId = VehicleIdGenerator();
-    }
-
-    private int VehicleIdGenerator()
-    {
-        Random random = new Random();
-        return random.Next(0, 1000);
+        VehicleId = id;
     }
 }
