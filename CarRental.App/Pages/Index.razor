@@ -1,0 +1,103 @@
+﻿@page "/"
+@inject BookingLogic bl
+
+<PageTitle>Bookings</PageTitle>
+
+<h3>Bookings</h3>
+
+<div class="container border-2">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">BookingId</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Km Rented</th>
+                <th scope="col">Km Returned</th>
+                <th scope="col">Date Rented</th>
+                <th scope="col">Date Returned</th>
+                <th scope="col">Km Driven</th>
+                <th scope="col">Cost</th>
+                <th scope="col">End Booking</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in bl.GetAllBookings())
+            {
+            <tr>
+                <th scope="row">@b.BookingId</th>
+                <td>@b.Customer.FullName (@b.Customer.CustomerId)</td>
+                <td>@b.KmStart</td>
+                <td>@b.RentedVehicle.Odometer</td>
+                <td>@b.StartDate.ToShortDateString()</td>
+                <td>@b.DisplayEndDate</td>
+                <td><input type="number" @bind="b.KmDriven"/></td>
+                <td>@b.TotalCost</td>
+                <td>
+                     @if (b.Status == "Open")
+                    { <button type="button" class="btn btn-secondary btn-sm" @onclick="(() => bl.CalculateBookingCost(b.BookingId, DateTime.Now))">End Booking</button> }
+                    else
+                    {  }
+                 </td>
+                    <td><span class="badge text-bg-@(b.Status == "Open" ? "success" : "danger")">@b.Status</span></td>
+            </tr>
+            }
+        </tbody>        
+    </table>
+</div>
+
+<h3>Vehicles</h3>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">RegNo</th>
+                <th scope="col">Make</th>
+                <th scope="col">Odometer</th>
+                <th scope="col">Cost Km</th>
+                <th scope="col">Vehicle Type</th>
+                <th scope="col">Cost Day</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in bl.GetAllRentalVehicles())
+            {
+                <tr>
+                    <th scope="row">@b.RegistrationNumber</th>
+                    <td>@b.Make</td>
+                    <td>@b.Odometer</td>
+                    <td>@b.CostKm</td>
+                    <td>@b.VehicleType</td>
+                    <td>@b.CostDay</td>
+                    <td><span class="badge text-bg-@(b.Availability.ToString() == "Available" ? "success" : "danger")">@b.Availability</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<h3>Customers</h3>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">SSN</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in bl.GetAllCustomers())
+            {
+                <tr>
+                    <th scope="row">@b.SocialSecurityNumber</th>
+                    <td>@b.FirstName</td>
+                    <td>@b.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
